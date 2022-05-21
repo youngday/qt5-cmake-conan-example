@@ -15,7 +15,7 @@ conan_basic_setup()
 
 # for local lib of quick 
 SET(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
-include(taoQuick)
+include(taoQuick.cmake)
 
 
 # for qt quick controls ++++++++:
