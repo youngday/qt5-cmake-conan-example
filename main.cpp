@@ -1,8 +1,8 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
-
-
+#include <QMediaPlayer>
+//#include <QtMultimedia/QMediaPlay>
 #include <iostream>
 #include "spdlog/spdlog.h"
 #include "spdlog/sinks/daily_file_sink.h"
@@ -38,6 +38,13 @@ int main(int argc, char *argv[])
                 QCoreApplication::exit(-1);
         }, Qt::QueuedConnection);
     engine.load(url);
+
+QSharedPointer<QMediaPlayer> player(new QMediaPlayer);
+//https://www.luyinzhushou.com/text2voice/
+player->setMedia(QUrl::fromLocalFile("/home/youngday/prjqt/mp3/test2.mp3"));//should local file path
+//player->setMedia(QUrl("qrc:/test1.mp3"));
+player->setVolume(50); //0~100音量范围,默认是100
+player->play();
 
     return app.exec();
 }

@@ -11,6 +11,7 @@ class ImguiOpencvDemo(ConanFile):
         "openssl/1.1.1l",\
         "asio/1.20.0",\
         "cpr/1.7.2",\
+        "numcpp/2.7.0",\
         "concurrentqueue/1.0.3"#,\
         #"poco/1.11.0"
 #        "eigen/3.4.0",\
