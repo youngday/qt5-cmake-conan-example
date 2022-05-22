@@ -9,10 +9,8 @@
 #include "spdlog/spdlog.h"
 #include "spdlog/sinks/daily_file_sink.h"
 #include <memory>
-
-#include "test_thread.h"
 #include "test_thread2.h"
-#include "test_concurent.h"
+//#include "test_concurent.h"
 namespace spd = spdlog;
 /*****************************************
  * QtConcurrent blockingMapped 并发处理QList或者QMap
@@ -46,8 +44,28 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
+
+         // Test_Thread2 buttonsClicked;
+       QThread *my_thread = Q_NULLPTR;
+    Test_Thread2 *test_2 = Q_NULLPTR;
+    //  Test_Concurent* test_concurent = Q_NULLPTR;
+
+    test_2 = new Test_Thread2(); // should not (this) , QObject::moveToThread: Cannot move objects with a parent
+    my_thread = new QThread;
+    
     engine.addImportPath(TaoQuickImportPath);
     engine.rootContext()->setContextProperty("taoQuickImagePath", TaoQuickImagePath);
+  engine.rootContext()->setContextProperty("buttonsClicked", test_2);
+
+    test_2->moveToThread(my_thread);
+        QObject::connect(test_2, &Test_Thread2::sigResultReady, test_2, &Test_Thread2::onTest);//youngday:TODO:
+    QObject::connect(my_thread, &QThread::finished, test_2, &Test_Thread2::deleteLater);
+
+    // test_concurent = new Test_Concurent();
+    // test_concurent->hide();
+
+
+
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(
         &engine, &QQmlApplicationEngine::objectCreated,
@@ -73,17 +91,7 @@ int main(int argc, char *argv[])
     player->setVolume(50); // 0~100音量范围,默认是100
     player->play();
 
-    QThread *my_thread = Q_NULLPTR;
-    Test_Thread2 *test_2 = Q_NULLPTR;
-    //  Test_Concurent* test_concurent = Q_NULLPTR;
-
-    test_2 = new Test_Thread2(); // should not (this) , QObject::moveToThread: Cannot move objects with a parent
-    my_thread = new QThread;
-    test_2->moveToThread(my_thread);
-    QObject::connect(my_thread, &QThread::finished, test_2, &Test_Thread2::deleteLater);
-    //QObject::connect(test_2, &Test_Thread2::sigResultReady, this, &MainWindow::onTest);//youngday:TODO:
-    // test_concurent = new Test_Concurent();
-    // test_concurent->hide();
+   
 
     return app.exec();
 }
