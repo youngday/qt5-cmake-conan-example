@@ -30,8 +30,8 @@ set(CMAKE_AUTOMOC ON) # Instruct CMake to run moc automatically when needed.
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
-find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Quick Multimedia REQUIRED)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Quick Multimedia REQUIRED)
+find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Quick Multimedia Concurrent REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Quick Multimedia Concurrent REQUIRED)
 
 # for qt quick controls ----------------
 
@@ -46,15 +46,17 @@ if(ANDROID)
 else()
     add_executable(${PROJECT_NAME}
       main.cpp
+      test_thread.cpp
+      test_thread2.cpp
       qml.qrc
       ${TaoQuickRes}
     )
 endif()
-
+     # test_concurent.cpp
 target_compile_definitions(${PROJECT_NAME}
   PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 target_link_libraries(${PROJECT_NAME}
-  PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick Qt${QT_VERSION_MAJOR}::Multimedia ${CONAN_LIBS})
+  PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick Qt${QT_VERSION_MAJOR}::Multimedia Qt${QT_VERSION_MAJOR}::Concurrent ${CONAN_LIBS})
 
 
   # $ mkdir build; cd build
