@@ -40,27 +40,21 @@ int main(int argc, char *argv[])
 {
     spdlog_init();
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-
     QGuiApplication app(argc, argv);
-
     QQmlApplicationEngine engine;
 
-         // Test_Thread2 buttonsClicked;
-       QThread *my_thread = Q_NULLPTR;
-    Test_Thread2 *test_2 = Q_NULLPTR;
+    QThread *my_thread = new QThread;
+    Test_Thread2 *test_2 = new Test_Thread2(); // should not (this) , QObject::moveToThread: Cannot move objects with a parent
     //  Test_Concurent* test_concurent = Q_NULLPTR;
-
-    test_2 = new Test_Thread2(); // should not (this) , QObject::moveToThread: Cannot move objects with a parent
-    my_thread = new QThread;
     
     engine.addImportPath(TaoQuickImportPath);
     engine.rootContext()->setContextProperty("taoQuickImagePath", TaoQuickImagePath);
-  engine.rootContext()->setContextProperty("buttonsClicked", test_2);
+    engine.rootContext()->setContextProperty("buttonsClicked", test_2);
 
     test_2->moveToThread(my_thread);
-        QObject::connect(test_2, &Test_Thread2::sigResultReady, test_2, &Test_Thread2::onTest);//youngday:TODO:
+    QObject::connect(test_2, &Test_Thread2::sigResultReady, test_2, &Test_Thread2::onTest);//youngday:TODO:
     QObject::connect(my_thread, &QThread::finished, test_2, &Test_Thread2::deleteLater);
-
+    my_thread->start();
     // test_concurent = new Test_Concurent();
     // test_concurent->hide();
 
