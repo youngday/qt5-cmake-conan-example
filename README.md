@@ -28,4 +28,7 @@ tested OK on ubuntu 20.04
 
 Please learn conan ,cmake ,qt ,before do it .
 good luck.
+
+## example function 
+test numcpp, eigen,xtensor
 ## end
