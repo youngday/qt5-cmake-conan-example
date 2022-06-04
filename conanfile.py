@@ -14,6 +14,7 @@ class ImguiOpencvDemo(ConanFile):
         "numcpp/2.7.0",\
         "xtensor/0.24.0",\
         "opencv/4.5.5",\
+        "eigen/3.4.0",\
         "concurrentqueue/1.0.3"#,\
         #"poco/1.11.0"
 #        "eigen/3.4.0",\

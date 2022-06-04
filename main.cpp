@@ -81,12 +81,12 @@ int main(int argc, char *argv[])
     QList<QString> strNew = QtConcurrent::blockingMapped(strList, stringInversion);
     qDebug() << strNew;
 
-    QSharedPointer<QMediaPlayer> player(new QMediaPlayer);
-    // https://www.luyinzhushou.com/text2voice/
-    player->setMedia(QUrl::fromLocalFile("/home/youngday/prjqt/mp3/test2.mp3")); // should local file path
-    // player->setMedia(QUrl("qrc:/test1.mp3"));
-    player->setVolume(50); // 0~100音量范围,默认是100
-    player->play();
+    // QSharedPointer<QMediaPlayer> player(new QMediaPlayer);
+    // // https://www.luyinzhushou.com/text2voice/
+    // player->setMedia(QUrl::fromLocalFile("/home/youngday/prjqt/mp3/test2.mp3")); // should local file path
+    // // player->setMedia(QUrl("qrc:/test1.mp3"));
+    // player->setVolume(50); // 0~100音量范围,默认是100
+    // player->play();
 
    
  numcpp_test();
