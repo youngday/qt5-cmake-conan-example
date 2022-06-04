@@ -5,12 +5,27 @@
 
 #include <iostream>
 #include <numeric>
-
+#include "main.h"
 constexpr nc::uint32 NUM_ROWS = 512;
 constexpr nc::uint32 NUM_COLS = 512;
 
+
 int numcpp_test()
 {
+    auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
+    console_sink->set_level(spdlog::level::warn);
+    console_sink->set_pattern("[numcpp] [%^%l%$] %v");
+
+    auto daily_sink = std::make_shared<spdlog::sinks::daily_file_sink_mt>("./log/numcpp.txt", 2, 30);
+    daily_sink->set_level(spdlog::level::info);
+    spdlog::set_pattern("[%Y-%m-%d %H:%M:%S.%e] [%t] [%l] %v");
+
+    spdlog::logger logger("numcpp", {console_sink, daily_sink});
+    logger.set_level(spdlog::level::debug);
+    logger.warn("this should appear in both console and file");
+    logger.info("this message should not appear in the console, only in the file");
+    logger.flush();
+
     // create a ramp image with NumCpp
     constexpr auto numHalfCols = NUM_COLS / 2; // integer division
     auto ncArray = nc::NdArray<nc::uint8>(NUM_ROWS, NUM_COLS);
