@@ -5,6 +5,10 @@ namespace spd = spdlog;
 /*****************************************
  * QtConcurrent blockingMapped 并发处理QList或者QMap
  ****************************************/
+
+extern int xtensor();
+
+
 // 字符串反转
 QString stringInversion(QString str)
 {
@@ -85,6 +89,15 @@ int main(int argc, char *argv[])
     player->play();
 
    
+ xtensor();
+
+
+
+
+
+
+
+
 
     return app.exec();
 }

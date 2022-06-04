@@ -48,6 +48,7 @@ else()
     add_executable(${PROJECT_NAME}
       main.cpp
       test.cpp
+      InterfaceWithOpenCV.cpp
       qml.qrc
       ${TaoQuickRes}
     )
