@@ -13,6 +13,9 @@ qt5.12  with conan package in cmake project, you can play qt with c++ conan pack
 * cmake 3.21
 * gcc 9.4
 * qt5.12.12, offline installed.
+## conan package
+* spdlog
+fast and powerful log for c++ and other langueages
 ## note
 :warning:
 if you want to add quickcontrol2 modules ,
