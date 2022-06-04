@@ -4,15 +4,18 @@ project(qt5_conan LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set (CMAKE_BUILD_TYPE "Release" CACHE
-      STRING "Choose the type of build.")
+if(NOT CMAKE_CXX_STANDARD)
+  set(CMAKE_CXX_STANDARD 17)
+endif()
+message(STATUS "Compiling with C++ standard: ${CMAKE_CXX_STANDARD}")
+
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Release)
+endif()
+
 # for conan lib 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
-
-#find_package(spdlog 1.10.0 REQUIRED)
 
 # for local lib of quick 
 SET(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
@@ -36,9 +39,6 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Quick Multimedia Concurrent R
 
 # for qt quick controls ----------------
 
-
-
-
 if(ANDROID)
     add_library(${PROJECT_NAME} SHARED
       main.cpp
@@ -56,7 +56,7 @@ endif()
 target_compile_definitions(${PROJECT_NAME}
   PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 target_link_libraries(${PROJECT_NAME}
-  PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick Qt${QT_VERSION_MAJOR}::Multimedia Qt${QT_VERSION_MAJOR}::Concurrent ${CONAN_LIBS})
+  PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick Qt${QT_VERSION_MAJOR}::Multimedia Qt${QT_VERSION_MAJOR}::Concurrent ${CONAN_LIBS} ${OpenCV_LIBS} )
 
 
   # $ mkdir build; cd build

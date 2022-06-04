@@ -6,12 +6,14 @@ class ImguiOpencvDemo(ConanFile):
     requires = \
         "fmt/8.1.1",\
         "spdlog/1.10.0",\
-        "nlohmann_json/3.10.4",\
+        "nlohmann_json/3.10.5",\
         "tomlplusplus/2.5.0",\
-        "openssl/1.1.1l",\
-        "asio/1.20.0",\
-        "cpr/1.7.2",\
+        "openssl/1.1.1o",\
+        "asio/1.22.1",\
+        "cpr/1.8.1",\
         "numcpp/2.7.0",\
+        "xtensor/0.24.0",\
+        "opencv/4.5.5",\
         "concurrentqueue/1.0.3"#,\
         #"poco/1.11.0"
 #        "eigen/3.4.0",\
