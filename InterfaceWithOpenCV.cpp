@@ -9,7 +9,7 @@
 constexpr nc::uint32 NUM_ROWS = 512;
 constexpr nc::uint32 NUM_COLS = 512;
 
-int xtensor()
+int numcpp_test()
 {
     // create a ramp image with NumCpp
     constexpr auto numHalfCols = NUM_COLS / 2; // integer division

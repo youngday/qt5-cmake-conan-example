@@ -6,7 +6,7 @@ namespace spd = spdlog;
  * QtConcurrent blockingMapped 并发处理QList或者QMap
  ****************************************/
 
-extern int xtensor();
+extern int numcpp_test();
 
 
 // 字符串反转
@@ -89,7 +89,7 @@ int main(int argc, char *argv[])
     player->play();
 
    
- xtensor();
+ numcpp_test();
 
 
 
