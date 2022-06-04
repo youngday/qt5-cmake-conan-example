@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("buttonsClicked", test_2);
 
     test_2->moveToThread(my_thread);
-    QObject::connect(test_2, &Test::sigResultReady, test_2, &Test::onTest);//youngday:TODO:
+    QObject::connect(test_2, &Test::sigResultReady, test_2, &Test::onTest);
     QObject::connect(my_thread, &QThread::finished, test_2, &Test::deleteLater);
     my_thread->start();
     // test_concurent = new Test_Concurent();
@@ -83,7 +83,7 @@ int main(int argc, char *argv[])
 
     // QSharedPointer<QMediaPlayer> player(new QMediaPlayer);
     // // https://www.luyinzhushou.com/text2voice/
-    // player->setMedia(QUrl::fromLocalFile("/home/youngday/prjqt/mp3/test2.mp3")); // should local file path
+    // player->setMedia(QUrl::fromLocalFile("test2.mp3")); // should local file path
     // // player->setMedia(QUrl("qrc:/test1.mp3"));
     // player->setVolume(50); // 0~100音量范围,默认是100
     // player->play();
