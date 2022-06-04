@@ -47,7 +47,7 @@ if(ANDROID)
 else()
     add_executable(${PROJECT_NAME}
       main.cpp
-      test_thread2.cpp
+      test.cpp
       qml.qrc
       ${TaoQuickRes}
     )

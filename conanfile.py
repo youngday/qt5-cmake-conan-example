@@ -25,8 +25,4 @@ class ImguiOpencvDemo(ConanFile):
     def imports(self):
         self.copy("*.dll", dst="bin", src="bin")
         self.copy("*.dylib*", dst="bin", src="lib")
-        #self.copy("imgui_impl_glfw.cpp", dst="../src", src="./res/bindings")
-        #self.copy("imgui_impl_opengl3.cpp", dst="../src", src="./res/bindings")
-        #self.copy("imgui_impl_glfw.h*", dst="../include", src="./res/bindings")
-        #self.copy("imgui_impl_opengl3.h*",
-         #         dst="../include", src="./res/bindings")
+

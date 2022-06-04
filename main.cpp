@@ -1,15 +1,5 @@
-#include <QGuiApplication>
-#include <QQmlApplicationEngine>
-#include <QQmlContext>
-#include <QMediaPlayer>
-#include <QtConcurrent/QtConcurrent>
-#include <QDebug>
-
-#include <iostream>
-#include "spdlog/spdlog.h"
-#include "spdlog/sinks/daily_file_sink.h"
-#include <memory>
-#include "test_thread2.h"
+#include "main.h"
+#include "test.h"
 //#include "test_concurent.h"
 namespace spd = spdlog;
 /*****************************************
@@ -26,15 +16,24 @@ QString stringInversion(QString str)
 
 int spdlog_init()
 {
-    //创建文件名类似于： daily_log_2018-01-17_10-27.txt，如果程序不退出的话，就是每天2:30 am创建新的文件
-    auto console = spd::daily_logger_mt("maitianPT", "./daily_log.txt", 2, 30);
-    //写入文档
-    console->info("test daily info 提示信息");
-    console->warn("test daily warn 警告");
-    console->error("test daily error 错误");
-    console->critical("test daily critical 致命");
+  
+    auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
+    console_sink->set_level(spdlog::level::warn);
+    console_sink->set_pattern("[main] [%^%l%$] %v");
+
+    auto daily_sink = std::make_shared<spdlog::sinks::daily_file_sink_mt>("./log/main.txt", 2, 30);
+    daily_sink->set_level(spdlog::level::info);
+    spdlog::set_pattern("[%Y-%m-%d %H:%M:%S.%e] [%t] [%l] %v");
+
+    spdlog::logger logger("main", {console_sink, daily_sink});
+    logger.set_level(spdlog::level::debug);
+    logger.warn("this should appear in both console and file");
+    logger.info("this message should not appear in the console, only in the file");
+    logger.flush();
+
     return 0;
 }
+
 
 int main(int argc, char *argv[])
 {
@@ -44,7 +43,7 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
 
     QThread *my_thread = new QThread;
-    Test_Thread2 *test_2 = new Test_Thread2(); // should not (this) , QObject::moveToThread: Cannot move objects with a parent
+    Test *test_2 = new Test(); // should not (this) , QObject::moveToThread: Cannot move objects with a parent
     //  Test_Concurent* test_concurent = Q_NULLPTR;
     
     engine.addImportPath(TaoQuickImportPath);
@@ -52,8 +51,8 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("buttonsClicked", test_2);
 
     test_2->moveToThread(my_thread);
-    QObject::connect(test_2, &Test_Thread2::sigResultReady, test_2, &Test_Thread2::onTest);//youngday:TODO:
-    QObject::connect(my_thread, &QThread::finished, test_2, &Test_Thread2::deleteLater);
+    QObject::connect(test_2, &Test::sigResultReady, test_2, &Test::onTest);//youngday:TODO:
+    QObject::connect(my_thread, &QThread::finished, test_2, &Test::deleteLater);
     my_thread->start();
     // test_concurent = new Test_Concurent();
     // test_concurent->hide();
