@@ -1,11 +1,12 @@
 #include "main.h"
 #include "test.h"
+#include <sstream>
 //#include "test_concurent.h"
 
 using namespace std;
 Logger logger;
-//extern stringstream logout;
 
+ stringstream logout;
 extern int numcpp_test();
 
 // 字符串反转
@@ -21,6 +22,7 @@ QString stringInversion(QString str)
 
 int main(int argc, char *argv[])
 {
+    
    // logout="sdfsdf";
     logger.initLogger("./log/",1,"main");
 

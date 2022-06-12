@@ -14,7 +14,7 @@
 #include "Logger.h"
 using namespace std;
 extern Logger logger;
-
+extern  stringstream logout;
 constexpr nc::uint32 NUM_ROWS = 512;
 constexpr nc::uint32 NUM_COLS = 512;
 
@@ -23,7 +23,7 @@ using namespace std;
 int numcpp_test()
 {
 
- stringstream logout;
+
   // create a ramp image with NumCpp
   constexpr auto numHalfCols = NUM_COLS / 2; // integer division
   auto ncArray = nc::NdArray<nc::uint8>(NUM_ROWS, NUM_COLS);
@@ -77,7 +77,7 @@ int numcpp_test()
   else
   {
     logout << "Arrays are not equal.\n";
-    logger.info(logout.str());
+    logger.debug(logout.str());
   }
 
   // construct some NumCpp arrays

@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <iostream>
+#include <sstream>
 
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>

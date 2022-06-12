@@ -1,16 +1,22 @@
 #include "test.h"
 #include <QDebug>
 #include "Logger.h"
+#include <sstream>
 using namespace std;
 extern Logger logger;
-//extern stringstream logout;
+extern  stringstream logout;
 Test::Test(QObject *parent) : QObject(parent)
 {
   // Test::spdlog_init();
 }
 void Test::doWork(const QString &s)
 {
+    
   qDebug() <<   "doWork"; 
+  logger.debug("doWork debug test.");
+  logger.info("doWork info test.");
+  logger.warn("doWork warn test.");
+
   emit sigResultReady(s);
 }
 

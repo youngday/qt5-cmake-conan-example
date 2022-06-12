@@ -26,7 +26,7 @@ void Logger::initLogger(std::string logPath, bool verbose, std::string logName)
         }
 
         auto daily_sink = std::make_shared<spdlog::sinks::daily_file_sink_mt>(logPath + logName + "_log.txt", 2, 30);
-        daily_sink->set_level(spdlog::level::debug);
+        daily_sink->set_level(spdlog::level::info);
         //daily_sink->set_pattern("[%Y-%m-%d %H:%M:%S.%e] [%t] [%l] %v");
         daily_sink->set_pattern("[%H:%M:%S.%e] [%t] [%^%l%$] %v");
         sinks.push_back(daily_sink);
@@ -41,7 +41,7 @@ void Logger::initLogger(std::string logPath, bool verbose, std::string logName)
 
         // create synchronous  loggers
         auto readerLogger = std::make_shared<spdlog::logger>("logger", begin(sinks), end(sinks));
-
+        readerLogger->set_level( spdlog::level::debug);
         readerLogger->flush_on(spdlog::level::warn);
 
         // globally register the loggers so they can be accessed using spdlog::get(logger_name)
