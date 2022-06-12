@@ -11,11 +11,6 @@
 #include <QtConcurrent/QtConcurrent>
 #include <QDebug>
 
-
-#include "spdlog/spdlog.h"
-#include "spdlog/sinks/daily_file_sink.h"
-#include "spdlog/sinks/stdout_color_sinks.h"
-#include "spdlog/cfg/env.h"  // support for loading levels from the environment variable
-#include "spdlog/fmt/ostr.h" // support for user defined types
+#include"Logger.h"
 
 #endif // MAIN_H

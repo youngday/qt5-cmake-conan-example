@@ -39,25 +39,25 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Quick Multimedia Concurrent R
 
 # for qt quick controls ----------------
 
-if(ANDROID)
-    add_library(${PROJECT_NAME} SHARED
-      main.cpp
-      qml.qrc
-    )
-else()
-    add_executable(${PROJECT_NAME}
-      main.cpp
-      test.cpp
-      InterfaceWithOpenCV.cpp
-      qml.qrc
-      ${TaoQuickRes}
-    )
-endif()
+# file(GLOB_RECURSE source_files "${CMAKE_CURRENT_LIST_DIR}/src/*")
+# add_library(logger_lib STATIC ${source_files})
+# target_include_directories(logger_lib PUBLIC "${CMAKE_CURRENT_LIST_DIR}/include/")
+
+add_executable(${PROJECT_NAME}
+  main.cpp
+  test.cpp
+  InterfaceWithOpenCV.cpp
+  Logger.cpp
+  qml.qrc
+  ${TaoQuickRes}
+)
      # test_concurent.cpp
 target_compile_definitions(${PROJECT_NAME}
   PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 target_link_libraries(${PROJECT_NAME}
   PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick Qt${QT_VERSION_MAJOR}::Multimedia Qt${QT_VERSION_MAJOR}::Concurrent ${CONAN_LIBS} ${OpenCV_LIBS} )
+
+
 
 
   # $ mkdir build; cd build

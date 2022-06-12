@@ -1,13 +1,12 @@
 #include "main.h"
 #include "test.h"
 //#include "test_concurent.h"
-namespace spd = spdlog;
-/*****************************************
- * QtConcurrent blockingMapped 并发处理QList或者QMap
- ****************************************/
+
+using namespace std;
+Logger logger;
+//extern stringstream logout;
 
 extern int numcpp_test();
-
 
 // 字符串反转
 QString stringInversion(QString str)
@@ -18,30 +17,17 @@ QString stringInversion(QString str)
     return tmp;
 }
 
-int spdlog_init()
-{
-  
-    auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
-    console_sink->set_level(spdlog::level::warn);
-    console_sink->set_pattern("[main] [%^%l%$] %v");
-
-    auto daily_sink = std::make_shared<spdlog::sinks::daily_file_sink_mt>("./log/main.txt", 2, 30);
-    daily_sink->set_level(spdlog::level::info);
-    spdlog::set_pattern("[%Y-%m-%d %H:%M:%S.%e] [%t] [%l] %v");
-
-    spdlog::logger logger("main", {console_sink, daily_sink});
-    logger.set_level(spdlog::level::debug);
-    logger.warn("this should appear in both console and file");
-    logger.info("this message should not appear in the console, only in the file");
-    logger.flush();
-
-    return 0;
-}
 
 
 int main(int argc, char *argv[])
 {
-    spdlog_init();
+   // logout="sdfsdf";
+    logger.initLogger("./log/",1,"main");
+
+    logger.debug("main debug test.");
+    logger.info("main info test.");
+    logger.warn("main warn test.");
+    //spdlog_init();
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;

@@ -20,10 +20,6 @@ signals:
 public slots:
     void doWork(const QString &s);
     void onTest(const QString &s);
-private:
-    std::shared_ptr <spdlog::sinks::stdout_color_sink_mt > console_sink  ;
-    std::shared_ptr <spdlog::sinks::daily_file_sink_mt > daily_sink ;
-    int spdlog_init();
 };
 
 #endif // Test_H

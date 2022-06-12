@@ -1,32 +1,13 @@
 #include "test.h"
 #include <QDebug>
-
+#include "Logger.h"
+using namespace std;
+extern Logger logger;
+//extern stringstream logout;
 Test::Test(QObject *parent) : QObject(parent)
 {
-   Test::spdlog_init();
+  // Test::spdlog_init();
 }
-int Test::spdlog_init()
-{
-  
-    console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
-    console_sink->set_level(spdlog::level::warn);
-    console_sink->set_pattern("[test] [%^%l%$] %v");
-
-    daily_sink = std::make_shared<spdlog::sinks::daily_file_sink_mt>("./log/test.txt", 2, 30);
-    daily_sink->set_level(spdlog::level::info);
-    spdlog::set_pattern("[%Y-%m-%d %H:%M:%S.%e] [%t] [%l] %v");
-
-    spdlog::logger logger("test", {console_sink, daily_sink});
-    logger.set_level(spdlog::level::debug);
-    logger.warn("this should appear in both console and file");
-    logger.info("this message should not appear in the console, only in the file");
-    logger.flush();
-
-    return 0;
-}
-
-
-
 void Test::doWork(const QString &s)
 {
   qDebug() <<   "doWork"; 
