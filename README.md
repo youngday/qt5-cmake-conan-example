@@ -30,7 +30,7 @@ Please learn conan ,cmake ,qt ,before do it .
 good luck.
 
 ## example function 
-test numcpp, eigen,xtensor
+test numcpp, xtensor
 ## TODO
 tcp http plot
 ## end
