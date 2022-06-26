@@ -8,7 +8,17 @@
 #include "xtensor/xarray.hpp"
 #include "xtensor/xio.hpp"
 #include "xtensor/xview.hpp"
+#include <xtensor/xmanipulation.hpp>
 #include <xtensor/xtensor.hpp>
+
+
+
+#include "xtensor/xbuilder.hpp"
+#include "xtensor/xcomplex.hpp"
+#include "xtensor/xrandom.hpp"
+#include "xtensor-blas/xblas.hpp"
+#include "xtensor-blas/xlapack.hpp"
+#include "xtensor-blas/xlinalg.hpp"
 
 #include "main.h"
 #include "Logger.h"
@@ -43,24 +53,24 @@ int numcpp_test()
   auto cvArray =
       cv::Mat(ncArray.numRows(), ncArray.numCols(), CV_8SC1, ncArray.data());
 
-  // display the OpenCV Mat
-  cv::namedWindow("Display window",
-                  cv::WINDOW_AUTOSIZE); // Create a window for display.
-  cv::imshow("Display window",
-             cvArray); // Show our image inside it.
-                       // cv::waitKey(0); // Wait for a keystroke in the window
+//   // display the OpenCV Mat
+//   cv::namedWindow("Display window",
+//                   cv::WINDOW_AUTOSIZE); // Create a window for display.
+//   cv::imshow("Display window",
+//              cvArray); // Show our image inside it.
+//                        // cv::waitKey(0); // Wait for a keystroke in the window
 
   // tranpose the Mat with OpenCV
   auto transposedCvArray = cv::Mat(cvArray.cols, cvArray.rows, CV_8SC1);
   cv::transpose(cvArray, transposedCvArray);
 
-  // display the transposed Mat
-  cv::namedWindow("Display window",
-                  cv::WINDOW_AUTOSIZE); // Create a window for display.
-  cv::imshow("Display window",
-             transposedCvArray); // Show our image inside it.
-                                 // cv::waitKey(0); // Wait for a keystroke in
-                                 // the window
+//   // display the transposed Mat
+//   cv::namedWindow("Display window",
+//                   cv::WINDOW_AUTOSIZE); // Create a window for display.
+//   cv::imshow("Display window",
+//              transposedCvArray); // Show our image inside it.
+//                                  // cv::waitKey(0); // Wait for a keystroke in
+//                                  // the window
 
   // convert the transposed OpenCV Mat to a NumCpp array
   auto transposedNcArray = nc::NdArray<nc::uint8>(
@@ -80,46 +90,68 @@ int numcpp_test()
     logger.debug(logout.str());
   }
 
-  // construct some NumCpp arrays
-  auto ncA = nc::random::randInt<int>({5, 5}, 0, 10);
-  auto ncB = nc::random::randInt<int>({5, 5}, 0, 10);
 
-  cout << "ncA:\n"
-       << ncA << std::endl;
-  cout << "ncB:\n"
-       << ncB << std::endl;
+logout << "array testing++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++.\n";
+logger.debug(logout.str());
 
-  // add the two NumCpp arrays for a sanity check
-  auto ncC = ncA + ncB;
+auto inTolerance = 1e-5 ;
+nc::NdArray<double> B = { {1,-2,1}, {0,2,-8},{-4,5,9} };
+cout<<B;
+nc::NdArray<double> b = { {0,8,-9} };
 
-  cout << "ncC:\n"
-       << ncC << std::endl;
+cout<<b;
+auto bt=nc::transpose(b);
+cout<<bt;
+auto x=nc::linalg::solve(B,bt);
+cout<<x;
+auto check=nc::dot(B,x);
+cout<<check;
 
-  xt::xarray<double> arr1{{1.0, 2.0, 3.0}, {2.0, 5.0, 7.0}, {2.0, 5.0, 7.0}};
 
-  cout << "arr1"
-       << "\n";
-  cout << arr1 << "\n";
+//auto y=nc::allclose(dot(a, x), b);
+logout.str("");
+logout <<"x=\n" <<x;
+logger.debug(logout.str());
+ 
+//  logout.str("");
+// logout <<"y=\n" <<y;
+// logger.debug(logout.str());
 
-  xt::xarray<double> arr2{5.0, 6.0, 7.0};
+//  logout.str("");
+// logout <<"check=\n" <<check;
+// logger.debug(logout.str());
 
-  cout << "arr2"
-       << "\n";
-  cout << arr2 << "\n";
 
-  xt::xarray<double> res = xt::view(arr1, 1) + arr2;
 
-  cout << "res"
-       << "\n";
-  cout << res << "\n";
 
-  xt::xtensor<double, 2> arr3({{1.01, 2.0e+0, 3.0}, {2.0, 5.0, 7.0}, {2.0, 5.0, 7.0}});
+xt::xarray<double> xtB{ {1,-2,1}, {0,2,-8},{-4,5,9} };
+cout<<"xtB"<<"\n";
+cout<<xtB<<"\n";
 
-  // std::array<size_t, 3> shape = { 3, 2, 4 };
-  // xt::xtensor<double, 3> arr3(shape);
-  cout << "arr3"
-       << "\n";
-  cout << arr3 << "\n";
+xt::xarray<double> xtb({ {0,8,-9} });
+cout<<"xtb"<<"\n";
+
+//auto xtbt = xt::transpose(xtb, {1,0});
+auto xtbt = xt::transpose(xtb);
+cout<<"xtbt"<<"\n";
+cout<<xtbt<<"\n";
+auto xtx=xt::linalg::solve(xtB,xtbt);
+cout<<"xtx"<<"\n";
+cout<<xtx<<"\n";
+auto xtcheck=xt::linalg::dot(xtB,xtx);
+cout<<"xtcheck"<<"\n";
+cout<<xtcheck<<"\n";
+
+
+
+logout.str("");
+logout <<"\n" <<xtx;
+logger.debug(logout.str());
+
+xt::xtensor<double, 2> xtt({{1.01, 2.0e+0, 3.0}, {2.0, 5.0, 7.0}, {2.0, 5.0, 7.0}});
+logout.str("");
+logout <<"\n" <<xtt;
+logger.debug(logout.str());
 
   cout << "end." << endl;
 

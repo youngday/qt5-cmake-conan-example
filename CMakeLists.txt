@@ -1,8 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
-
 project(qt5_conan LANGUAGES CXX)
-
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 if(NOT CMAKE_CXX_STANDARD)
   set(CMAKE_CXX_STANDARD 17)
@@ -21,7 +18,6 @@ conan_basic_setup()
 SET(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 include(taoQuick.cmake)
 
-
 # for qt quick controls ++++++++:
 # Find dependencies.# path of qt installed
 set(QT_DIR ~/Qt5.12.12/5.12.12/gcc_64)
@@ -36,7 +32,7 @@ set(CMAKE_AUTORCC ON)
 
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Quick Multimedia Concurrent REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Quick Multimedia Concurrent REQUIRED)
-
+find_package(xtensor-blas REQUIRED)
 # for qt quick controls ----------------
 
 # file(GLOB_RECURSE source_files "${CMAKE_CURRENT_LIST_DIR}/src/*")
@@ -55,10 +51,8 @@ add_executable(${PROJECT_NAME}
 target_compile_definitions(${PROJECT_NAME}
   PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 target_link_libraries(${PROJECT_NAME}
-  PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick Qt${QT_VERSION_MAJOR}::Multimedia Qt${QT_VERSION_MAJOR}::Concurrent ${CONAN_LIBS} ${OpenCV_LIBS} )
-
-
-
+  PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick Qt${QT_VERSION_MAJOR}::Multimedia
+   Qt${QT_VERSION_MAJOR}::Concurrent ${CONAN_LIBS} ${OpenCV_LIBS} xtensor-blas )
 
   # $ mkdir build; cd build
   # $ cmake .. -G "<cmake_generator>" "-DCMAKE_PREFIX_PATH=<path_to_your_qt_sources>"

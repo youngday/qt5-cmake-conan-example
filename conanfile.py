@@ -17,7 +17,7 @@ class ImguiOpencvDemo(ConanFile):
         "eigen/3.4.0",\
         "concurrentqueue/1.0.3"#,\
         #"poco/1.11.0"
-#        "eigen/3.4.0",\
+#               "qcustomplot/2.1.0",\
     generators = "cmake"
 
     def build(self):
