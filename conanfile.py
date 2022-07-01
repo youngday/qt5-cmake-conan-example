@@ -14,9 +14,10 @@ class ImguiOpencvDemo(ConanFile):
         "numcpp/2.7.0",\
         "xtensor/0.24.0",\
         "opencv/4.5.5",\
+        "implot/0.13",\
         "concurrentqueue/1.0.3"#,\
         #"poco/1.11.0"
-#       "qcustomplot/2.0.1",\
+
     generators = "cmake"
 
     def build(self):

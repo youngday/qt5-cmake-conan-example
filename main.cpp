@@ -1,14 +1,26 @@
 #include "main.h"
 #include "test.h"
 #include <sstream>
-//#include "test_concurent.h"
+
+#include <bits/stdc++.h>
+#include <iostream>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <dirent.h>
+#include <stdlib.h>
+#include <stdio.h>
+
+#include <filesystem>
+namespace fs = std::filesystem;
+//using namespace std::filesystem;
 
 using namespace std;
 Logger logger;
 
 stringstream logout;
 extern int numcpp_test();
-
+extern int fileTest();
+extern int folder_exists();
 // 字符串反转
 QString stringInversion(QString str) {
   QString tmp;
@@ -16,7 +28,42 @@ QString stringInversion(QString str) {
     tmp.prepend(ch);
   return tmp;
 }
+int folder_exists(const fs::path& p, fs::file_status s = fs::file_status{})
+{
+   // std::cout << p;
+    if(fs::status_known(s) ? fs::exists(s) : fs::exists(p)){
+//std::cout << " exists\n";
+        return true;
+    }
+        
+    else
+    {
+        //std::cout << " does not exist\n";
+        return false;
+    }
+      
+}
 
+int fileTest()
+{
+
+fs::path folder_path2="/home/youngday/file-test2/";
+
+if(!folder_exists(folder_path2)){
+if (fs::create_directory(folder_path2))
+{
+	cout << "fs create dir succ: " << folder_path2 << endl;
+}
+else {
+cout << "fs not created." << folder_path2 << endl;
+}
+}else {
+cout << "fs has existed." << folder_path2 << endl;
+};
+
+
+    return true;
+}
 int main(int argc, char *argv[]) {
 
   // logout="sdfsdf";
@@ -75,6 +122,8 @@ int main(int argc, char *argv[]) {
   // player->play();
 
   numcpp_test();
+
+fileTest();
 
   return app.exec();
 }
