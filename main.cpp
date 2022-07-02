@@ -15,40 +15,43 @@ stringstream logout;
 extern int numcpp_test();
 extern int folderTest();
 // 字符串反转
-QString stringInversion(QString str) {
+QString stringInversion(QString str)
+{
   QString tmp;
   for (auto ch : str)
     tmp.prepend(ch);
   return tmp;
 }
 
-int folderTest() {
+int folderTest()
+{
 
   fs::path folder_path2 = "/home/youngday/file-test2/";
   int ret = false;
-  if (!fs::exists(folder_path2)) {
-    if (fs::create_directory(folder_path2)) {
-
-      logout.str("");
+  logout.str("");
+  if (!fs::exists(folder_path2))
+  {
+    if (fs::create_directory(folder_path2))
+    {
       logout << "mkdir successed: " << folder_path2 << endl;
-      logger.debug(logout.str());
       ret = true;
-    } else {
-      logout.str("");
+    }
+    else
+    {
       logout << "mkdir failed." << folder_path2 << endl;
-      logger.debug(logout.str());
       ret = false;
     } // directory
-  } else {
-    logout.str("");
-      logout <<"fs has existed." << folder_path2 << endl;
-      logger.debug(logout.str());
+  }
+  else
+  {
+    logout << "fs has existed." << folder_path2 << endl;
     ret = true;
   }; // exist
-
+  logger.debug(logout.str());
   return ret;
 }
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
 
   // logout="sdfsdf";
   logger.initLogger("./log/", 1, "main");
@@ -81,7 +84,8 @@ int main(int argc, char *argv[]) {
   const QUrl url(QStringLiteral("qrc:/main.qml"));
   QObject::connect(
       &engine, &QQmlApplicationEngine::objectCreated, &app,
-      [url](QObject *obj, const QUrl &objUrl) {
+      [url](QObject *obj, const QUrl &objUrl)
+      {
         if (!obj && url == objUrl)
           QCoreApplication::exit(-1);
       },
