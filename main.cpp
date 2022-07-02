@@ -1,26 +1,19 @@
 #include "main.h"
+#include "Logger.h"
 #include "test.h"
-#include <sstream>
-
-#include <bits/stdc++.h>
 #include <iostream>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <dirent.h>
-#include <stdlib.h>
-#include <stdio.h>
+#include <sstream>
 
 #include <filesystem>
 namespace fs = std::filesystem;
-//using namespace std::filesystem;
+// using namespace std::filesystem;
 
 using namespace std;
 Logger logger;
 
 stringstream logout;
 extern int numcpp_test();
-extern int fileTest();
-extern int folder_exists();
+extern int folderTest();
 // 字符串反转
 QString stringInversion(QString str) {
   QString tmp;
@@ -28,41 +21,32 @@ QString stringInversion(QString str) {
     tmp.prepend(ch);
   return tmp;
 }
-int folder_exists(const fs::path& p, fs::file_status s = fs::file_status{})
-{
-   // std::cout << p;
-    if(fs::status_known(s) ? fs::exists(s) : fs::exists(p)){
-//std::cout << " exists\n";
-        return true;
-    }
-        
-    else
-    {
-        //std::cout << " does not exist\n";
-        return false;
-    }
-      
-}
 
-int fileTest()
-{
+int folderTest() {
 
-fs::path folder_path2="/home/youngday/file-test2/";
+  fs::path folder_path2 = "/home/youngday/file-test2/";
+  int ret = false;
+  if (!fs::exists(folder_path2)) {
+    if (fs::create_directory(folder_path2)) {
 
-if(!folder_exists(folder_path2)){
-if (fs::create_directory(folder_path2))
-{
-	cout << "fs create dir succ: " << folder_path2 << endl;
-}
-else {
-cout << "fs not created." << folder_path2 << endl;
-}
-}else {
-cout << "fs has existed." << folder_path2 << endl;
-};
+      logout.str("");
+      logout << "mkdir successed: " << folder_path2 << endl;
+      logger.debug(logout.str());
+      ret = true;
+    } else {
+      logout.str("");
+      logout << "mkdir failed." << folder_path2 << endl;
+      logger.debug(logout.str());
+      ret = false;
+    } // directory
+  } else {
+    logout.str("");
+      logout <<"fs has existed." << folder_path2 << endl;
+      logger.debug(logout.str());
+    ret = true;
+  }; // exist
 
-
-    return true;
+  return ret;
 }
 int main(int argc, char *argv[]) {
 
@@ -102,16 +86,22 @@ int main(int argc, char *argv[]) {
           QCoreApplication::exit(-1);
       },
       Qt::QueuedConnection);
- // engine.load(url);
+  // engine.load(url);
 
   QList<QString> strList;
   for (int i = 0; i < 20; i++)
     strList.append(QString::number(i + 1) + " ok");
-  qDebug() << strList;
+  string text;
+  for (int i = 0; i < strList.size(); ++i)
+    text += strList.at(i).toStdString() + "  ";
+  logger.debug(text);
 
   QList<QString> strNew =
       QtConcurrent::blockingMapped(strList, stringInversion);
-  qDebug() << strNew;
+  text.clear();
+  for (int i = 0; i < strNew.size(); ++i)
+    text += strNew.at(i).toStdString() + "  ";
+  logger.debug(text);
 
   // QSharedPointer<QMediaPlayer> player(new QMediaPlayer);
   // // https://www.luyinzhushou.com/text2voice/
@@ -123,7 +113,7 @@ int main(int argc, char *argv[]) {
 
   numcpp_test();
 
-fileTest();
+  folderTest();
 
   return app.exec();
 }
