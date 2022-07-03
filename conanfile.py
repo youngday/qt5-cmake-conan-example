@@ -5,6 +5,7 @@ class ImguiOpencvDemo(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
     requires = \
         "fmt/8.1.1",\
+        "boost/1.79.0",\
         "spdlog/1.10.0",\
         "nlohmann_json/3.10.5",\
         "tomlplusplus/2.5.0",\
@@ -15,9 +16,10 @@ class ImguiOpencvDemo(ConanFile):
         "xtensor/0.24.0",\
         "opencv/4.5.5",\
         "implot/0.13",\
+        "trantor/1.5.5",\
+        "drogon/1.7.5",\
         "concurrentqueue/1.0.3"#,\
-        #"poco/1.11.0"
-
+        #"drogon/1.7.5" ，\
     generators = "cmake"
 
     def build(self):
