@@ -14,6 +14,7 @@ Logger logger;
 stringstream logout;
 extern int numcpp_test();
 extern int folderTest();
+extern int tcp_client();
 // 字符串反转
 QString stringInversion(QString str)
 {
@@ -115,9 +116,11 @@ int main(int argc, char *argv[])
   // player->setVolume(50); // 0~100音量范围,默认是100
   // player->play();
 
-  numcpp_test();
+ // numcpp_test();
 
-  folderTest();
+ // folderTest();
+ tcp_client();
+
 
   return app.exec();
 }
