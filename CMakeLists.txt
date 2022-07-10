@@ -44,6 +44,7 @@ add_executable(${PROJECT_NAME}
   test.cpp
   InterfaceWithOpenCV.cpp
   tcp_client_timeout.cpp
+  tcp_client_coro.cpp
   Logger.cpp
   qml.qrc
   ${TaoQuickRes}

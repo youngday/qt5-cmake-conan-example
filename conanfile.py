@@ -10,14 +10,13 @@ class ImguiOpencvDemo(ConanFile):
         "nlohmann_json/3.10.5",\
         "tomlplusplus/2.5.0",\
         "openssl/1.1.1o",\
+        "numcpp/2.7.0",\
+        "opencv/4.5.5",\
+        "xtensor/0.24.0",\
+        "implot/0.13",\
+        "cocoyaxi/2.0.3",\
         "asio/1.22.1",\
         "cpr/1.8.1",\
-        "numcpp/2.7.0",\
-        "xtensor/0.24.0",\
-        "opencv/4.5.5",\
-        "implot/0.13",\
-        "trantor/1.5.5",\
-        "drogon/1.7.5",\
         "concurrentqueue/1.0.3"#,\
         #"drogon/1.7.5" ，\
     generators = "cmake"

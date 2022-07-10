@@ -15,6 +15,7 @@ stringstream logout;
 extern int numcpp_test();
 extern int folderTest();
 extern int tcp_client();
+extern int tcp_client_coro();
 // 字符串反转
 QString stringInversion(QString str)
 {
@@ -119,8 +120,8 @@ int main(int argc, char *argv[])
  // numcpp_test();
 
  // folderTest();
- tcp_client();
-
+// tcp_client();
+ tcp_client_coro();
 
   return app.exec();
 }
