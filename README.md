@@ -35,6 +35,9 @@ good luck.
 numcpp, xtensor,
 tcpclient with asio lib,
 tcp client with cocoyaxi.
+qt3d,display .obj 
+![](images/plane-obj.png)
 ## TODO
+
 http plot
 ## end

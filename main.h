@@ -11,6 +11,7 @@
 #include <QMediaPlayer>
 #include <QtConcurrent/QtConcurrent>
 #include <QDebug>
+#include <Qt3DQuickExtras/qt3dquickwindow.h>
 
 #include"Logger.h"
 

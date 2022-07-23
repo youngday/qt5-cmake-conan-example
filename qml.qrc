@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>qt3d.qml</file>
+        <file>assets/obj/toyplane.obj</file>
     </qresource>
 </RCC>

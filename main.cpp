@@ -123,5 +123,9 @@ int main(int argc, char *argv[])
 // tcp_client();
  tcp_client_coro();
 
+ Qt3DExtras::Quick::Qt3DQuickWindow view;
+    view.setSource(QUrl("qrc:/qt3d.qml"));
+    view.show();
+
   return app.exec();
 }
