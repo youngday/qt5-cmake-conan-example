@@ -13,6 +13,10 @@ qt5.12  with conan package in cmake project, you can play qt with c++ conan pack
 * cmake 3.21
 * gcc 10.2
 * qt5.12.12, offline installed.
+ only xtensor can found in conan.io,so we need cmake and make install manualy. 
+* xtensor
+* xtensor-xlt
+* xtensro-blas
 ## conan package
 * spdlog
 fast and powerful log for c++ and other langueages
